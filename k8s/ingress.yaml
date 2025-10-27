@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aks-flask-prod-env-ingress
+spec:
+  rules:
+    - host: aks-flask-prod-env.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: aks-flask-prod-env-service
+                port:
+                  number: 80
