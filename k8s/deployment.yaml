@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: aks-flask-prod-env-app
-          image: <ACR_NAME>.azurecr.io/aks-flask-prod-env-app:latest
+          image: flaskappacr.azurecr.io/aks-flask-prod-env-app:latest
           ports:
             - containerPort: 5000
