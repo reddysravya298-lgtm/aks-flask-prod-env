@@ -1,0 +1,7 @@
+adminUser: admin
+adminPassword: admin123
+service:
+  type: LoadBalancer
+  port: 80
+persistence:
+  enabled: false
