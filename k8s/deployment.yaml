@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aks-flask-prod-env-app
+  labels:
+    app: aks-flask-prod-env-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aks-flask-prod-env-app
+  template:
+    metadata:
+      labels:
+        app: aks-flask-prod-env-app
+    spec:
+      containers:
+        - name: aks-flask-prod-env-app
+          image: <ACR_NAME>.azurecr.io/aks-flask-prod-env-app:latest
+          ports:
+            - containerPort: 5000
