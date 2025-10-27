@@ -12,7 +12,7 @@ stages:
         steps:
           - task: Docker@2
             inputs:
-              containerRegistry: '$(ACR_SERVICE_CONNECTION)'
+              containerRegistry: 'FlaskAppACR'
               repository: '$(imageName)'
               command: 'buildAndPush'
               Dockerfile: 'app/Dockerfile'
@@ -24,7 +24,7 @@ stages:
         steps:
           - task: AzureCLI@2
             inputs:
-              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+              azureSubscription: 'azure-aks'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: |
