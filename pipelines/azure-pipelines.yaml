@@ -1,0 +1,32 @@
+trigger:
+  - main
+
+variables:
+  imageName: 'aks-flask-prod-env-app'
+  tag: '$(Build.BuildId)'
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - task: Docker@2
+            inputs:
+              containerRegistry: '$(ACR_SERVICE_CONNECTION)'
+              repository: '$(imageName)'
+              command: 'buildAndPush'
+              Dockerfile: 'app/Dockerfile'
+              tags: ['latest', '$(tag)']
+
+  - stage: Deploy
+    jobs:
+      - job: Deploy
+        steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az aks get-credentials --resource-group aks-flask-prod-env-rg --name aks-flask-prod-env-cluster
+                kubectl apply -f k8s/
